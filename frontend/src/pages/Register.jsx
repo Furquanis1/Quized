@@ -9,6 +9,7 @@ function Register() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [role, setRole] = useState('USER');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -41,6 +42,7 @@ function Register() {
         username: username.trim(),
         email: email.trim(),
         password,
+        role,
       });
       toast.success('Account created successfully! Please sign in.');
       navigate('/login');
@@ -143,6 +145,31 @@ function Register() {
                 disabled={loading}
                 className="w-full pl-11 pr-4 py-3 bg-slate-900/60 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/25 disabled:opacity-50 transition-all duration-200"
               />
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-slate-400 text-xs font-semibold uppercase tracking-wider mb-2">
+              Account Role
+            </label>
+            <div className="relative font-semibold">
+              <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                <FiShield className="w-5 h-5" />
+              </span>
+              <select
+                value={role}
+                onChange={(e) => setRole(e.target.value)}
+                disabled={loading}
+                className="w-full pl-11 pr-10 py-3 bg-slate-900/60 border border-slate-800 rounded-xl text-white focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/25 disabled:opacity-50 transition-all duration-200 appearance-none cursor-pointer"
+              >
+                <option value="USER" className="bg-slate-950 text-white font-semibold">Standard User</option>
+                <option value="ADMIN" className="bg-slate-950 text-white font-semibold">Administrator</option>
+              </select>
+              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-400">
+                <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                </svg>
+              </div>
             </div>
           </div>
 

@@ -26,11 +26,20 @@ public class AuthService {
             throw new RuntimeException("Email already exists");
         }
 
+        User.Role userRole = User.Role.USER;
+        if (request.getRole() != null && !request.getRole().isBlank()) {
+            try {
+                userRole = User.Role.valueOf(request.getRole().toUpperCase());
+            } catch (IllegalArgumentException e) {
+                // Keep default USER
+            }
+        }
+
         User user = User.builder()
                 .username(request.getUsername())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .role(User.Role.USER)
+                .role(userRole)
                 .build();
 
         userRepository.save(user);
